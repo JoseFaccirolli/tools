@@ -10,12 +10,12 @@ def gerar_nome_aleatorio(tamanho=6):
 def renomear_arquivos(pasta):
     """Renomeia todos os arquivos da pasta com nomes aleatórios."""
     if not os.path.isdir(pasta):
-        print("❌ Pasta não encontrada!")
+        print("Pasta não encontrada!")
         return
 
     arquivos = os.listdir(pasta)
     if not arquivos:
-        print("⚠️ Nenhum arquivo encontrado na pasta.")
+        print("Nenhum arquivo encontrado na pasta.")
         return
 
     for arquivo in arquivos:
@@ -31,15 +31,13 @@ def renomear_arquivos(pasta):
                 caminho_novo = os.path.join(pasta, novo_nome)
 
             os.rename(caminho_antigo, caminho_novo)
-            print(f"✅ {arquivo} → {novo_nome}")
+            print(f"{arquivo} → {novo_nome}")
 
-    print("\n🎉 Todos os arquivos foram renomeados com sucesso!")
+    print("\nTodos os arquivos foram renomeados com sucesso!")
 
-# ----------------------------
-# COMO USAR:
-# Basta colocar o caminho da pasta entre aspas abaixo, por exemplo:
-# renomear_arquivos(r"C:\Users\SeuUsuario\Desktop\H_semBorda")
-# ----------------------------
+
+# Basta colocar o caminho da pasta abaixo, por exemplo:
+# C:\Users\SeuUsuario\Desktop\H_semBorda
 
 if __name__ == "__main__":
     pasta = input("Digite o caminho da pasta com as fotos: ").strip()
