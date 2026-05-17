@@ -23,26 +23,41 @@ def insertQueryGenerator():
   for i in range(numberOfAttributes):
     attributes.append(input(f"Enter the {i+1}º element of the table: "))
 
-  op = str(input("Does any attribute have a prefix? (y/N): "))
+  op = str(input("Does any attribute have a prefix or have a fixed value? (y/N): "))
   
   prefix = []
+  isFixed = []
+  fixedValue = []
   lenOfCount = 1
   if (op.lower() == "y"):
+    # Prefix
     for i in range(numberOfAttributes):
-      print("(If there is no prefix just press enter!)")
+      print("(If there is no prefix (or is a fixed value) just press enter!)")
       prefix.append(input(f"Enter the prefix of [{attributes[i]}]: "))
+
+    # Fixed value
+    for i in range(numberOfAttributes):
+      print("(Type 'y' or 'n' if this attribute have a fixed value")
+      isFixed.append(input( 60 * "-" + "\n" + f"The attribute [{attributes[i]}] has a fixed value? (y/N): ").lower())
+      if isFixed[i] == "y":
+        fixedValue.append(input(f"Enter the fixed value of [{attributes[i]}]: "))
+
 
   lenOfCount = int(input("Enter the minimun counter size (the number of digits of the suffix): "))
   if lenOfCount < 1: lenOfCount = 1
 
   # Values structure
   count = 10 ** (lenOfCount - 1)
-
+  fix_count = 0
   for i in range(numberOfinserts):
     values = []
+    fix_count = 0
     for j in range(numberOfAttributes):
-      if op.lower() == "y":
+      if op.lower() == "y" and isFixed[j] != "y":
         values.append("'" + prefix[j] + str(count))
+      elif len(isFixed) > 0 and isFixed[j] == "y":
+        values.append(fixedValue[fix_count])
+        fix_count += 1
       else:
         values.append("'" + str(count))
 
