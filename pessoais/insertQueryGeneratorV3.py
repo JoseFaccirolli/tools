@@ -2,15 +2,15 @@
 def insertQueryGenerator():
   # Declarations
   query = "INSERT INTO "
-  attributes = int
+  numberOfAttributes = int
   numberOfinserts = int
   table = str
-  arguments = []
+  attributes = []
   inserts = []
 
   # Quantity inputs
   try:
-    attributes = int(input("Enter the number of attributes: "))
+    numberOfAttributes = int(input("Enter the number of attributes: "))
     numberOfinserts = int(input("Enter the number of inserts: "))
   except:
     print("Please enter a number (1-n)!")
@@ -20,18 +20,17 @@ def insertQueryGenerator():
 
   # Insert structure inputs
   # Attributes
-  for i in range(attributes):
-    arguments.append(input(f"Enter the {i+1}º element of the table: "))
+  for i in range(numberOfAttributes):
+    attributes.append(input(f"Enter the {i+1}º element of the table: "))
 
   op = str(input("Does any attribute have a prefix? (y/N): "))
   
   prefix = []
   lenOfCount = 1
-  prefixPlace = -1
   if (op.lower() == "y"):
-    for i in range(attributes):
+    for i in range(numberOfAttributes):
       print("(If there is no prefix just press enter!)")
-      prefix.append(input(f"Enter the prefix of [{arguments[i]}]: "))
+      prefix.append(input(f"Enter the prefix of [{attributes[i]}]: "))
 
   lenOfCount = int(input("Enter the minimun counter size (the number of digits of the suffix): "))
   if lenOfCount < 1: lenOfCount = 1
@@ -41,7 +40,7 @@ def insertQueryGenerator():
 
   for i in range(numberOfinserts):
     values = []
-    for j in range(attributes):
+    for j in range(numberOfAttributes):
       if op.lower() == "y":
         values.append("'" + prefix[j] + str(count))
       else:
@@ -58,7 +57,7 @@ def insertQueryGenerator():
 
   # String generation
   query += table
-  query += " (" + ", ".join(arguments) + ") " + "VALUES\n"
+  query += " (" + ", ".join(attributes) + ") " + "VALUES\n"
   query += ",\n".join(inserts) + ";"
 
   return print(query)
